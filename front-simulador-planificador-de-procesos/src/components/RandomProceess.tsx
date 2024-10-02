@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextField, Typography, Grid, Grid2 } from '@mui/material';
+import { Box, TextField, Typography, Grid2 } from '@mui/material';
 
 interface RandomProcessProps {
     processCount: number;
