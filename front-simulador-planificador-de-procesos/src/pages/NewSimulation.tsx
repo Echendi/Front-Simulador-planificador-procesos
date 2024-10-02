@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid2, Checkbox, FormControlLabel, Box, Button, Typography, TextField, Snackbar, Alert } from '@mui/material';
+import { Grid2, Checkbox, FormControlLabel, Box, Button, Typography, TextField, Snackbar, Alert, CircularProgress } from '@mui/material';
 import { NewProcess } from '../common/interfaces/NewProcess';
 import { SoSelect } from '../components/SoSelect';
 import { NewProcessTable } from '../components/NewProcessTable';
@@ -20,6 +20,7 @@ export const NewSimulation = () => {
     const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [selectedType, setSelectedType] = useState(algorithms[0]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [processCount, setProcessCount] = useState(1);
     const [minBurstTime, setMinBurstTime] = useState(1);
@@ -41,6 +42,7 @@ export const NewSimulation = () => {
     };
 
     const handleSimulation = async () => {
+        setIsLoading(true);
         try {
             if (Number(simulationTime) <= 0) {
                 setSnackbarMessage(`El tiempo de simulación debe ser mayor a cero.`);
@@ -63,8 +65,9 @@ export const NewSimulation = () => {
             setSnackbarMessage(`Error al iniciar la simulación: ${error?.response?.data?.message || error.message || error.code}`);
             setSnackbarSeverity('error');
             setOpenSnackbar(true);
+        } finally {
+            setIsLoading(false);
         }
-
     };
 
     async function initSimulation() {
@@ -130,6 +133,12 @@ export const NewSimulation = () => {
                 >
                     Iniciar Simulación
                 </Button>
+                {isLoading && (
+                    <CircularProgress
+                        size={40}
+                        sx={{ position: 'absolute', top: '50%', left: '50%', marginTop: '-20px', marginLeft: '-20px' }}
+                    />
+                )}
 
                 <Grid2 container spacing={2} margin={4}>
                     <Grid2 size={6}>
