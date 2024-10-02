@@ -84,7 +84,7 @@ export const NewSimulation = () => {
             enableBatchProcessing: batchCheck,
             batchCount: Number(batchCount)
         };
-        const response = await axios.post('http://localhost:3000/simulator', data);
+        const response = await axios.post('https://back-simulador-planificador-de-procesos.onrender.com/simulator', data);
         return response;
     }
 
@@ -100,7 +100,7 @@ export const NewSimulation = () => {
             maxBurstTime: maxBurstTime,
             minBurstTime: minBurstTime
         };
-        const response = await axios.post('http://localhost:3000/simulator/random', data);
+        const response = await axios.post('https://back-simulador-planificador-de-procesos.onrender.com/simulator/random', data);
         return response;
     }
 
